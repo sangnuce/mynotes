@@ -4,7 +4,8 @@ class CreateNotes < ActiveRecord::Migration[5.0]
       t.string :title
       t.datetime :time
       t.text :content
-      t.integer :status
+      t.integer :status, default: 0
+      t.datetime :deleted_at
 
       t.timestamps
     end
