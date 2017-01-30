@@ -1,0 +1,22 @@
+en:
+  notes:
+    index:
+      title: "Notes"
+    table:
+      id: "ID"
+      title: "Title"
+      time: "Time"
+      content: "Content"
+      status: "Status"
+    statuses:
+      init: "Init"
+      in_progress: "In progress"
+      cancelled: "Cancelled"
+      delayed: "Delayed"
+      finished: "Finished"
+    form:
+      title: "Title"
+      time: "Time"
+      content: "Content"
+      status: "Status"
+      choose_status: "Choose status"

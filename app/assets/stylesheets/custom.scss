@@ -1,4 +1,21 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-datetimepicker";
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+.notes {
+  .head {
+    margin: 10px 0;
+    padding: 10px 0;
+
+    h2.title {
+      margin: 0 20px 0 0;
+      padding: 0;
+    }
+
+    .vresize {
+      resize: vertical;
+    }
+  }
+}

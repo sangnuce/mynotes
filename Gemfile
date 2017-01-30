@@ -26,6 +26,9 @@ gem "ransack"
 gem "paranoia", "~> 2.2"
 gem "font-awesome-sass"
 gem "react-rails", "~> 1.0"
+gem "i18n-js", ">= 3.0.0.rc11"
+gem "momentjs-rails", ">= 2.9.0"
+gem "bootstrap3-datetimepicker-rails", "~> 4.17.43"
 
 group :development, :test do
   gem "mysql2", ">= 0.3.18", "< 0.5"
