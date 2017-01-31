@@ -6,12 +6,13 @@ class Notes extends React.Component {
       current_page: 0,
       total_pages: 0
     };
-    this._handleAddNote = this._handleAddNote.bind(this);
-    this._getDataFromServer = this._getDataFromServer.bind(this);
+    this.handleAddNote = this.handleAddNote.bind(this);
+    this.getDataFromServer = this.getDataFromServer.bind(this);
+    this.handleDeleteNote = this.handleDeleteNote.bind(this);
   }
 
   componentWillMount() {
-    this._getDataFromServer();
+    this.getDataFromServer();
   }
 
   render() {
@@ -23,7 +24,7 @@ class Notes extends React.Component {
             id="collapse_btn" data-toggle="collapse"
             data-target="#collapsible_form">{I18n.t("buttons.add")}</button>
           <div className="collapse" id="collapsible_form">
-            <NoteForm handleNewRecord={this._handleAddNote}
+            <NoteForm handleNewRecord={this.handleAddNote}
               url={this.props.url} statuses={this.props.statuses} />
           </div>
         </div>
@@ -41,25 +42,31 @@ class Notes extends React.Component {
           </thead>
           <tbody>
             {this.state.notes.map((note) => {
-              return <Note key={note.id} note={note} />
+              return <Note key={note.id} note={note}
+                handleDeleteNote={this.handleDeleteNote}
+                url={this.props.url} />;
             })}
           </tbody>
         </table>
         <div className="foot">
           <PaginatorSection currentPage={this.state.current_page}
             totalPages={this.state.total_pages}
-            onPaginate={this._getDataFromServer} />
+            onPaginate={this.getDataFromServer} />
         </div>
       </div>
     );
   }
 
-  _handleAddNote(){
+  handleAddNote(){
     $("#collapse_btn").trigger('click');
-    this._getDataFromServer(this.state.current_page);
+    this.getDataFromServer(this.state.current_page);
   }
 
-  _getDataFromServer(page = 1){
+  handleDeleteNote(){
+    this.getDataFromServer(this.state.current_page);
+  }
+
+  getDataFromServer(page = 1){
     this.setState({notes: []});
     $.get({
       url: this.props.url + '/?page=' + page,

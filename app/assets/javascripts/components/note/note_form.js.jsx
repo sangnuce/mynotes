@@ -7,34 +7,34 @@ class NoteForm extends React.Component {
       content: '',
       status: ''
     };
-    this._handleChange = this._handleChange.bind(this);
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render(){
     return (
       <div className="row">
-        <form className="col col-md-12" onSubmit={this._handleSubmit}>
+        <form className="col col-md-12" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="title">{I18n.t("notes.form.title")}</label>
             <input id="title" type="text" name="title" className="form-control"
-              value={this.state.title} onChange={this._handleChange} />
+              value={this.state.title} onChange={this.handleChange} />
           </div>
           <div className="form-group">
             <label htmlFor="time">{I18n.t("notes.form.time")}</label>
             <input id="time" type="text" name="time"
               className="form-control datetimepicker"
-              value={this.state.time} onBlur={this._handleChange} />
+              value={this.state.time} onBlur={this.handleChange} />
           </div>
           <div className="form-group">
             <label htmlFor="content">{I18n.t("notes.form.content")}</label>
             <textarea id="content" name="content" value={this.state.content}
-              className="form-control vresize" onChange={this._handleChange} />
+              className="form-control vresize" onChange={this.handleChange} />
           </div>
           <div className="form-group">
             <label htmlFor="status">{I18n.t("notes.form.status")}</label>
             <select id="status" name="status" value={this.state.status}
-              onChange={this._handleChange} className="form-control">
+              onChange={this.handleChange} className="form-control">
               <option key={this.props.statuses.length}
                 value="">{I18n.t("notes.form.choose_status")}</option>
               {this.props.statuses.map((status, index) => {
@@ -44,25 +44,25 @@ class NoteForm extends React.Component {
             </select>
           </div>
           <button className="btn btn-primary" type="submit"
-            disabled={!this._form_valid()}>{I18n.t("buttons.save")}</button>
+            disabled={!this.formValid()}>{I18n.t("buttons.save")}</button>
         </form>
       </div>
     );
   }
 
-  _handleChange(e){
+  handleChange(e){
     let name = e.target.name;
     this.setState({
       [name]: e.target.value
     });
   }
 
-  _form_valid(){
-    return (this.state.title && this.state.time &&
-      this.state.content && this.state.status != '');
+  formValid(){
+    return this.state.title && this.state.time &&
+      this.state.content && this.state.status != '';
   }
 
-  _handleSubmit(e){
+  handleSubmit(e){
     e.preventDefault();
     $.post({
       url: this.props.url,

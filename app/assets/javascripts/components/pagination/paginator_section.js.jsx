@@ -1,7 +1,7 @@
 class PaginatorSection extends React.Component {
   constructor(props) {
     super(props);
-    this._handleClick = this._handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
@@ -12,7 +12,7 @@ class PaginatorSection extends React.Component {
       previous = <li key={0}>
         <PaginatorLink pageNumber={currentPage - 1}
           displayText={I18n.t("pagination.previous")}
-          onPaginatorLinkClick={this._handleClick} />
+          onPaginatorLinkClick={this.handleClick} />
       </li>;
     }
 
@@ -21,7 +21,7 @@ class PaginatorSection extends React.Component {
       next = <li key={totalPages + 1}>
         <PaginatorLink pageNumber={currentPage + 1}
           displayText={I18n.t("pagination.next")}
-          onPaginatorLinkClick={this._handleClick} />
+          onPaginatorLinkClick={this.handleClick} />
       </li>;
     }
 
@@ -32,7 +32,7 @@ class PaginatorSection extends React.Component {
         let className = (page == currentPage) ? 'active' : '';
         return <li key={page} className={className}>
           <PaginatorLink pageNumber={page} displayText={page}
-            onPaginatorLinkClick={this._handleClick} />
+            onPaginatorLinkClick={this.handleClick} />
         </li>;
       });
     }
@@ -46,7 +46,7 @@ class PaginatorSection extends React.Component {
     );
   }
 
-  _handleClick(pageNumber) {
+  handleClick(pageNumber) {
     this.props.onPaginate(pageNumber);
   }
 }
