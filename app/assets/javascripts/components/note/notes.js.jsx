@@ -9,6 +9,7 @@ class Notes extends React.Component {
     this.handleAddNote = this.handleAddNote.bind(this);
     this.getDataFromServer = this.getDataFromServer.bind(this);
     this.handleDeleteNote = this.handleDeleteNote.bind(this);
+    this.handleUpdateNote = this.handleUpdateNote.bind(this);
   }
 
   componentWillMount() {
@@ -24,7 +25,7 @@ class Notes extends React.Component {
             id="collapse_btn" data-toggle="collapse"
             data-target="#collapsible_form">{I18n.t("buttons.add")}</button>
           <div className="collapse" id="collapsible_form">
-            <NoteForm handleNewRecord={this.handleAddNote}
+            <NoteForm handleNewNote={this.handleAddNote}
               url={this.props.url} statuses={this.props.statuses} />
           </div>
         </div>
@@ -44,7 +45,8 @@ class Notes extends React.Component {
             {this.state.notes.map((note) => {
               return <Note key={note.id} note={note}
                 handleDeleteNote={this.handleDeleteNote}
-                url={this.props.url} />;
+                handleUpdateNote={this.handleUpdateNote}
+                url={this.props.url} statuses={this.props.statuses} />;
             })}
           </tbody>
         </table>
@@ -63,6 +65,10 @@ class Notes extends React.Component {
   }
 
   handleDeleteNote(){
+    this.getDataFromServer(this.state.current_page);
+  }
+
+  handleUpdateNote(){
     this.getDataFromServer(this.state.current_page);
   }
 

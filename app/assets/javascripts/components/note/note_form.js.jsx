@@ -69,7 +69,7 @@ class NoteForm extends React.Component {
       dataType: 'JSON',
       data: {note: this.state},
       success: (data) => {
-        this.props.handleNewRecord();
+        this.props.handleNewNote();
         this.setState({
           title: '',
           time: '',
