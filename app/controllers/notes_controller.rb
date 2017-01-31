@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :find_note, only: :destroy
+  before_action :find_note, only: [:destroy, :update]
 
   def index
     respond_to do |format|
@@ -18,6 +18,14 @@ class NotesController < ApplicationController
   def create
     @note = Note.new note_params
     if @note.save
+      render json: @note
+    else
+      render json: @note.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @note.update_attributes note_params
       render json: @note
     else
       render json: @note.errors, status: :unprocessable_entity
