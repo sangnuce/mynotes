@@ -1,0 +1,6 @@
+en:
+  messages:
+    confirm_delete: "Are you sure?"
+    delete_success: "Delete success"
+    delete_failed: "Delete failed"
+    not_found: "Not found"
