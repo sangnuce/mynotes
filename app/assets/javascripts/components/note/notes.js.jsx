@@ -68,8 +68,13 @@ class Notes extends React.Component {
     this.getDataFromServer(this.state.current_page);
   }
 
-  handleUpdateNote(){
-    this.getDataFromServer(this.state.current_page);
+  handleUpdateNote(old_note, new_note){
+    let index = this.state.notes.indexOf(old_note);
+    let notes = React.addons.update(this.state.notes,
+      {$splice: [[index, 1, new_note]]});
+    this.setState({
+      notes: notes
+    })
   }
 
   getDataFromServer(page = 1){

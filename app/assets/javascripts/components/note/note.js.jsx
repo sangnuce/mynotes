@@ -105,7 +105,7 @@ class Note extends React.Component {
   }
 
   handleUpdate(){
-    let note = {
+    let new_note = {
       title: this.titleField.value,
       time: this.timeField.value,
       content: this.contentField.value,
@@ -116,12 +116,12 @@ class Note extends React.Component {
       url: this.props.url + '/' + this.props.note.id,
       type: 'PUT',
       dataType: 'JSON',
-      data: {note: note},
+      data: {note: new_note},
       success: (data) => {
         this.setState({
           edit: false
         });
-        this.props.handleUpdateNote();
+        this.props.handleUpdateNote(this.props.note, data);
       }
     });
   }
