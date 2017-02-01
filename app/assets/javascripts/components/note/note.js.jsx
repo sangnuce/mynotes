@@ -25,23 +25,6 @@ class Note extends React.Component {
     }
   }
 
-  handleDelete() {
-    if(confirm(I18n.t("messages.confirm_delete"))) {
-      $.ajax({
-        url: this.props.url + '/' + this.props.note.id,
-        type: 'DELETE',
-        dataType: 'JSON',
-        success: (data) => {
-          alert(data.message);
-          this.props.handleDeleteNote();
-        },
-        error: (data) => {
-          alert(data.responseJSON.message);
-        }
-      });
-    }
-  }
-
   recordRow(){
     let time = '';
     if (this.props.note.time) {
@@ -104,6 +87,23 @@ class Note extends React.Component {
     });
   }
 
+  handleDelete() {
+    if(confirm(I18n.t("messages.confirm_delete"))) {
+      $.ajax({
+        url: this.props.url + '/' + this.props.note.id,
+        type: 'DELETE',
+        dataType: 'JSON',
+        success: (data) => {
+          alert(data.message);
+          this.props.handleDeleteNote();
+        },
+        error: (data) => {
+          this.props.handleError(data.responseJSON);
+        }
+      });
+    }
+  }
+
   handleUpdate(){
     let new_note = {
       title: this.titleField.value,
@@ -122,6 +122,9 @@ class Note extends React.Component {
           edit: false
         });
         this.props.handleUpdateNote(this.props.note, data);
+      },
+      error: (data) => {
+        this.props.handleError(data.responseJSON);
       }
     });
   }

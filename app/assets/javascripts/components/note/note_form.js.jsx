@@ -76,6 +76,9 @@ class NoteForm extends React.Component {
           content: '',
           status: ''
         });
+      },
+      error: (data) => {
+        this.props.handleError(data.responseJSON);
       }
     });
   }

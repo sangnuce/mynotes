@@ -22,4 +22,13 @@
   .relative {
     position: relative;
   }
+
+  .errors {
+    margin: 10px 0;
+
+    .alert {
+      margin: 0;
+      padding: 15px 20px;
+    }
+  }
 }
