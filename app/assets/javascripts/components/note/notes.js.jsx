@@ -4,12 +4,14 @@ class Notes extends React.Component {
     this.state = {
       notes: [],
       current_page: 0,
-      total_pages: 0
+      total_pages: 0,
+      errors: []
     };
     this.handleAddNote = this.handleAddNote.bind(this);
     this.getDataFromServer = this.getDataFromServer.bind(this);
     this.handleDeleteNote = this.handleDeleteNote.bind(this);
     this.handleUpdateNote = this.handleUpdateNote.bind(this);
+    this.setErrors = this.setErrors.bind(this);
   }
 
   componentWillMount() {
@@ -17,6 +19,13 @@ class Notes extends React.Component {
   }
 
   render() {
+    let errors = '';
+    if(Object.keys(this.state.errors).length > 0) {
+      errors = <div className="errors">
+        <Errors errors={this.state.errors} />
+      </div>;
+    }
+
     return (
       <div className="notes">
         <div className="head">
@@ -24,8 +33,10 @@ class Notes extends React.Component {
           <button className="btn btn-primary"
             id="collapse_btn" data-toggle="collapse"
             data-target="#collapsible_form">{I18n.t("buttons.add")}</button>
+          {errors}
           <div className="collapse" id="collapsible_form">
             <NoteForm handleNewNote={this.handleAddNote}
+              handleError={this.setErrors}
               url={this.props.url} statuses={this.props.statuses} />
           </div>
         </div>
@@ -46,6 +57,7 @@ class Notes extends React.Component {
               return <Note key={note.id} note={note}
                 handleDeleteNote={this.handleDeleteNote}
                 handleUpdateNote={this.handleUpdateNote}
+                handleError={this.setErrors}
                 url={this.props.url} statuses={this.props.statuses} />;
             })}
           </tbody>
@@ -61,14 +73,17 @@ class Notes extends React.Component {
 
   handleAddNote(){
     $("#collapse_btn").trigger('click');
+    this.setErrors();
     this.getDataFromServer(this.state.current_page);
   }
 
   handleDeleteNote(){
+    this.setErrors();
     this.getDataFromServer(this.state.current_page);
   }
 
   handleUpdateNote(old_note, new_note){
+    this.setErrors();
     let index = this.state.notes.indexOf(old_note);
     let notes = React.addons.update(this.state.notes,
       {$splice: [[index, 1, new_note]]});
@@ -86,6 +101,12 @@ class Notes extends React.Component {
         data.current_page = page;
         this.setState(data);
       }
+    });
+  }
+
+  setErrors(errors = {}){
+    this.setState({
+      errors: errors
     });
   }
 }
