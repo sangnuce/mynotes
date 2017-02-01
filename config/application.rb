@@ -16,5 +16,6 @@ module Mynotes
     config.i18n.available_locales = [:en]
     config.i18n.default_locale = :en
     config.middleware.use I18n::JS::Middleware
+    config.react.addons = true
   end
 end
