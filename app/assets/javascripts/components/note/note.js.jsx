@@ -90,7 +90,7 @@ class Note extends React.Component {
   handleDelete() {
     if(confirm(I18n.t("messages.confirm_delete"))) {
       $.ajax({
-        url: this.props.url + '/' + this.props.note.id,
+        url: `${this.props.url}/${this.props.note.id}`,
         type: 'DELETE',
         dataType: 'JSON',
         success: (data) => {
@@ -113,7 +113,7 @@ class Note extends React.Component {
     }
 
     $.ajax({
-      url: this.props.url + '/' + this.props.note.id,
+      url: `${this.props.url}/${this.props.note.id}`,
       type: 'PUT',
       dataType: 'JSON',
       data: {note: new_note},

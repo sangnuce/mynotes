@@ -95,7 +95,7 @@ class Notes extends React.Component {
   getDataFromServer(page = 1){
     this.setState({notes: []});
     $.get({
-      url: this.props.url + '/?page=' + page,
+      url: `${this.props.url}/?page=${page}`,
       dataType: 'JSON',
       success: (data) => {
         data.current_page = page;
